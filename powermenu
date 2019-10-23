@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# options="Lock screen,swaylock-blur\n
+# Shutdown,poweroff\n
+# Reboot,reboot\n
+# Suspend,suspend\n
+# Logout,swaymsg exit"
+# res="$(echo $options | awk -F ',' '{print $1}' | menu)"
+# #[ $res = "logout" ] && swaymsg exit || systemctl  $res
+# sh -c $(echo $options | grep "$res" | awk -F ',' '{print $2}')
+
+alias poweropt='\
+'
+
+opt=$(echo "Cancel
+shutdown
+reboot
+logout
+lock" | rofi -dmenu -theme $THEME)
+
+if [ $opt = "shutdown" ]; then
+    systemctl poweroff
+elif [ $opt = "reboot" ]; then
+    systemctl reboot
+elif [ $opt = "logout" ]; then
+    swaymsg exit
+elif [ $opt = "lock" ]; then
+    swaylock-blur
+fi
