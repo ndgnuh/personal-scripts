@@ -13,7 +13,7 @@ conflicts=()
 
 
 prerare () {
-	git clone https://github.com/ndgnuh/personal-scripts.git
+	git clone https://github.com/ndgnuh/personal-scripts.git $pkgname
 }
 
 build() {
@@ -22,14 +22,9 @@ build() {
 
 
 package() {
-  cd "$pkgname"
+  cd "$pkgname/scripts"
   mkdir -p "$pkgdir/usr/local/bin"
-  exe=$(ls \
-  | grep -v PKGBUILD \
-  | grep -v LICENSE \
-  | grep -v README \
-  | grep -v .md)
-  chmod +x exe
-  cp $exe "$pkgdir/usr/local/bin/"
+  ls | xargs -I {} chmod +x "{}"
+  ls | xargs -I {} cp "{}" "$pkgdir/usr/local/bin/"
 }
 
