@@ -1,0 +1,5 @@
+#!/bin/sh
+wget ctt-daotao.hust.edu.vn -O /tmp/ctt-daotao.html
+grep  'contentThi' /tmp/ctt-daotao.html -A 9 | grep '<p>' > /tmp/ctt-daotao.content.html
+pandoc /tmp/ctt-daotao.content.html -t plain -o /tmp/ctt-daotao.txt
+notify-send "Ctt-Daotao" "$(cat /tmp/ctt-daotao.txt)"
